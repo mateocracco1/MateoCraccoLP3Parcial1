@@ -1,0 +1,43 @@
+﻿@page
+@model MateoCraccoParcial1.Pages.consultaproductoModel
+@{
+    ViewData["Title"] = "Consulta de Productos";
+
+}
+
+<h1>Consulta de Productos</h1>
+<p>Listado general de productos con su categoría .</p>
+
+@if (Model.ListaProductos.Count == 0)
+{
+    <p><strong>No hay productos cargados en el sistema.</strong></p>
+}
+else
+{
+    <table border="1" cellpadding="8" cellspacing="0" style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr style="background-color: #f2f2f2; text-align: left;">
+                <th>ID</th>
+                <th>Nombre del Producto</th>
+                <th>Precio</th>
+                <th>Categoría</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var prod in Model.ListaProductos)
+            {
+                <tr>
+                    <td>@prod.IdProducto</td>
+                    <td>@prod.Nombre</td>
+                    <td>$@prod.Precio.ToString("N2")</td>
+                    <td>@prod.Categoria</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<br />
+<p>
+    <a href="/Index">Volver a la página principal</a>
+</p>

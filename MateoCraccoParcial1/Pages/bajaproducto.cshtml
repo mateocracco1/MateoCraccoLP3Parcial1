@@ -1,0 +1,54 @@
+﻿@page
+@model MateoCraccoParcial1.Pages.bajaproductoModel
+@{
+    ViewData["Title"] = "Baja de Productos";
+}
+
+<h1>Baja de Productos</h1>
+<p>Seleccione el producto que desea eliminar del catálogo.</p>
+
+@if (!string.IsNullOrEmpty(Model.Mensaje))
+{
+    <p><strong>@Model.Mensaje</strong></p>
+}
+
+@if (Model.ListaProductos.Count == 0)
+{
+    <p>No hay productos registrados en el sistema.</p>
+}
+else
+{
+    <table border="1" cellpadding="8" cellspacing="0" style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr style="background-color: #f2f2f2; text-align: left;">
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Categoría</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var prod in Model.ListaProductos)
+            {
+                <tr>
+                    <td>@prod.IdProducto</td>
+                    <td>@prod.Nombre</td>
+                    <td>$@prod.Precio.ToString("N2")</td>
+                    <td>@prod.Categoria</td>
+                    <td>
+                        <form method="post" asp-page-handler="Eliminar" onsubmit="return confirm('¿Estás seguro de eliminar el producto \'@prod.Nombre\'?');">
+                            <input type="hidden" name="idProducto" value="@prod.IdProducto" />
+                            <button type="submit">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<br />
+<p>
+    <a href="/Index">Volver a la página principal</a>
+</p>
